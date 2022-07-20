@@ -6,14 +6,14 @@
             :root {
                 color-scheme: light dark;
             }
-
-            #theme {
+            .theme {
                 display: block;
                 position: relative;
                 padding: 16px;
                 margin: 16px;
                 border: 1px solid;
                 font-size: x-large;
+                opacity: 0.1;
             }
             .light {
                 border-color: black;
@@ -33,21 +33,32 @@
                 content: 'Dark';
                 display: block;
             }
+            @media (prefers-color-scheme: dark) {
+                .dark {
+                    opacity: 0.9;
+                }
+            }
+            @media (prefers-color-scheme: light) {
+                .light {
+                    opacity: 0.9;
+                }
+            }
+
         </style>
         <script>
-const matcher = window.matchMedia('(prefers-color-scheme: dark)');
-matcher.addEventListener('change', (e) => showScheme(e.matches));
-showScheme(matcher.matches);
+// const matcher = window.matchMedia('(prefers-color-scheme: dark)');
+// matcher.addEventListener('change', (e) => showScheme(e.matches));
+// showScheme(matcher.matches);
 
-function  showScheme(isDark) {
-    const theme = document.querySelector('#theme');
-    theme.className = isDark ? 'dark' : 'light';
-    console.log('Theme is:', theme.className);
-}
+// function  showScheme(isDark) {
+//     document.querySelector('#theme').className = isDark ? 'dark' : 'light';
+//     document.querySelector('#code').innerHTML = JSON.stringify(matcher.matches);
+// }
 
         </script>
     </head>
     <body>
-        <div id="theme" class="light"></div>
+        <div class="theme light"></div>
+        <div class="theme dark"></div>
     </body>
 </html>
