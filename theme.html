@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+            #theme {
+                display: block;
+                position: relative;
+                padding: 16px;
+                margin: 16px;
+                border: 1px solid;
+                font-size: x-large;
+            }
+            .light {
+                border-color: black;
+                background-color: white;
+                color: black;
+            }
+            .light::before {
+                content: 'Light';
+                display: block;
+            }
+            .dark {
+                border-color: white;
+                background-color: black;
+                color: white;
+            }
+            .dark::before {
+                content: 'Dark';
+                display: block;
+            }
+        </style>
+        <script>
+const matcher = window.matchMedia('(prefers-color-scheme: dark)');
+matcher.addEventListener('change', (e) => showScheme(e.matches));
+showScheme(matcher.matches);
+
+function  showScheme(isDark) {
+    const theme = document.querySelector('#theme');
+    theme.className = isDark ? 'dark' : 'light';
+    console.log('Theme is:', theme.className);
+}
+
+        </script>
+    </head>
+    <body>
+        <div id="theme" class="light"></div>
+    </body>
+</html>
