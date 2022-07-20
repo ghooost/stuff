@@ -15,6 +15,7 @@
                 font-size: x-large;
                 opacity: 0.1;
             }
+            .code,
             .light {
                 border-color: black;
                 background-color: white;
@@ -33,6 +34,9 @@
                 content: 'Dark';
                 display: block;
             }
+            .code {
+                opacity: 1;
+            }
             @media (prefers-color-scheme: dark) {
                 .dark {
                     opacity: 0.9;
@@ -46,19 +50,24 @@
 
         </style>
         <script>
-// const matcher = window.matchMedia('(prefers-color-scheme: dark)');
-// matcher.addEventListener('change', (e) => showScheme(e.matches));
-// showScheme(matcher.matches);
 
-// function  showScheme(isDark) {
-//     document.querySelector('#theme').className = isDark ? 'dark' : 'light';
-//     document.querySelector('#code').innerHTML = JSON.stringify(matcher.matches);
-// }
+            let matcher = null;
+            document.addEventListener('load', () => {
+                matcher = window.matchMedia('(prefers-color-scheme: dark)');
+                matcher.addEventListener('change', showScheme, true);
+                showScheme();
+            }, true);
+
+            function  showScheme() {
+                console.log('changed', matcher);
+                document.querySelector('.code').innerHTML = 'from code: ' + (matcher.matches ? 'dark' : 'light');
+            }
 
         </script>
     </head>
     <body>
         <div class="theme light"></div>
         <div class="theme dark"></div>
+        <div class="theme code"></div>
     </body>
 </html>
