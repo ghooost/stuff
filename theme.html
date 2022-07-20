@@ -54,7 +54,11 @@
             let matcher = null;
             document.addEventListener('load', () => {
                 matcher = window.matchMedia('(prefers-color-scheme: dark)');
-                matcher.addEventListener('change', showScheme, true);
+                if (matcher.addEventListener) {
+                    matcher.addEventListener('change', showScheme, true);
+                } else if (matcher.addListener) {
+                    matcher.addListener(showScheme)
+                }
                 showScheme();
             }, true);
 
